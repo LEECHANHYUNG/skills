@@ -1,0 +1,6 @@
+{
+  "name": "grill-pane",
+  "version": "0.1.0",
+  "description": "grill-me 라운드를 pane에 띄워 마우스 클릭으로 답한다",
+  "types": "./types/index.d.ts"
+}
