@@ -50,7 +50,7 @@ test('라운드를 받아 pane을 띄우고, 클릭한 답을 텍스트로 보�
   await $.session.start({ cwd: '/', surface: 'terminal', isInteractive: true })
 
   const ran = await $.tool.call({ tool: 'mcp__grill-pane__grill_round', ...ROUND })
-  expect(String(ran.result)).toContain('턴을 끝내라')
+  expect(String(ran.result)).toContain('한 줄만 쓰고 턴을 끝내라')
 
   const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
   expect((await ui.find({ type: 'Text', text: /Q1 · 목표/ }))?.text).toContain('목표')
