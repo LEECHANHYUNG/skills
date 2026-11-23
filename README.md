@@ -21,6 +21,28 @@ ln -s ~/Projects/skills/topdown-learning ~/.claude/skills/topdown-learning
 
 연결 후 Claude Code 세션에서 `/reload-skills`를 실행하면 스킬이 등록된다.
 
+## mod 목록
+
+| mod | 설명 |
+| --- | --- |
+| [now](./now/hooks/register.tsx) | 지금 세션에서 무엇을 하고 있는지(현재 목표, 진행 단계, 다음 할 일, 응답 대기 여부) 패널에 정리해서 보여준다. `/now`로 패널을 열고 닫고, `/now refresh`로 요약을 즉시 갱신한다. |
+| [grill-pane](./grill-pane/hooks/register.tsx) | grill-me(grilling) 라운드를 pane에 띄워 질문마다 선택지 버튼, 직접 입력 칸, [모두 추천대로]·[제출] 버튼으로 답하게 한다. 답은 `[grill-me 라운드 N 답변]` 메시지로 대화에 남는다. `/grill`로 마지막 라운드를 다시 연다. 마우스 클릭은 풀스크린 터미널(`"tui": "fullscreen"`)에서만 되고, pane은 터미널 폭 110열 이상에서 뜬다. |
+
+### mod 설치
+
+이 컴퓨터처럼 레포를 클론해 두었다면, `~/.claude/settings.json`의 `env`에 폴더를 등록해 레포에서 바로 불러온다. 레포를 고치면 바로 반영된다. 여러 개는 `:`로 잇는다.
+
+```json
+{ "env": { "CLAUDE_CODE_PLUGIN_DIRS": "~/Projects/skills/now:~/Projects/skills/grill-pane" } }
+```
+
+클론 없이 설치하려면 터미널 세션 프롬프트에서:
+
+```
+/plugin install now --marketplace LEECHANHYUNG/skills
+/plugin install grill-pane --marketplace LEECHANHYUNG/skills
+```
+
 ## 업데이트
 
 ```bash

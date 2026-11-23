@@ -1,0 +1,16 @@
+{
+  "name": "leechanhyung-skills",
+  "owner": { "name": "LEECHANHYUNG" },
+  "plugins": [
+    {
+      "name": "now",
+      "source": "./now",
+      "description": "지금 세션에서 무엇을 하고 있는지 패널에 정리해서 보여준다"
+    },
+    {
+      "name": "grill-pane",
+      "source": "./grill-pane",
+      "description": "grill-me 라운드를 pane에 띄워 마우스 클릭으로 답한다"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "now",
+  "version": "0.1.0",
+  "description": "지금 세션에서 무엇을 하고 있는지 패널에 정리해서 보여준다",
+  "types": "./types/index.d.ts"
+}
