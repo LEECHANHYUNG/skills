@@ -193,7 +193,9 @@ export const register: Register = on => {
       }
       await update($, session, () => ({ ...final, isSubmitted: true }))
       await $.ui.close({ id: PANE })
-      await $.prompt.submit({ text: formatAnswers(final) }).catch(() => {
+      // Not awaited: the submitted prompt settles only once its own turn runs,
+      // which can be long after the press's 10s hook budget is gone.
+      void $.prompt.submit({ text: formatAnswers(final) }).catch(() => {
         $.ui.toast('답을 보내지 못했어요. /grill로 다시 열어 제출해 주세요.')
       })
     }

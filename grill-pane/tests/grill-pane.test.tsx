@@ -29,7 +29,7 @@ const ROUND = {
   ],
 }
 
-function engine(on: On, sent: string[], placed = true) {
+function engine(on: On, sent: string[], placed = true, isHanging = false) {
   on('tool.register', () => ({ value: { tool: 'mcp__grill-pane__grill_round' } }))
   on('command.register', () => ({ value: { command: 'grill' } }))
   on('session.start', (_, e) => ({ cwd: e.cwd }))
@@ -40,7 +40,8 @@ function engine(on: On, sent: string[], placed = true) {
   on('ui.toast', () => ({ value: undefined }))
   on('prompt.submit', (_, e) => {
     sent.push(e.text)
-    return { text: e.text }
+    // A submitted prompt settles only when its own turn ends: hanging stands for that.
+    return isHanging ? new Promise<never>(() => {}) : { text: e.text }
   })
 }
 
@@ -97,4 +98,17 @@ test('pane을 못 띄우면 텍스트로 물으라고 돌려준다', async ($, o
 
   const ran = await $.tool.call({ tool: 'mcp__grill-pane__grill_round', ...ROUND })
   expect(String(ran.result)).toContain('채팅 텍스트로')
+})
+
+test('제출 버튼은 보낸 프롬프트의 턴이 끝나기를 기다리지 않는다', async ($, on) => {
+  const sent: string[] = []
+  engine(on, sent, true, true)
+  await $.session.start({ cwd: '/', surface: 'terminal', isInteractive: true })
+  await $.tool.call({ tool: 'mcp__grill-pane__grill_round', ...ROUND })
+
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  await ui.press({ key: 'accept-all' })
+
+  expect(sent).toHaveLength(1)
+  await ui.unmount()
 })
